@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BEA81E3B1CC4524100C6B9BF /* MbtaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA81E3A1CC4524100C6B9BF /* MbtaClient.swift */; };
 		BEF98BF61CC42F5F00136C47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF98BF51CC42F5F00136C47 /* AppDelegate.swift */; };
 		BEF98BF81CC42F5F00136C47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEF98BF71CC42F5F00136C47 /* Assets.xcassets */; };
 		BEF98BFB1CC42F5F00136C47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF98BF91CC42F5F00136C47 /* MainMenu.xib */; };
 		BEF98C061CC42F5F00136C47 /* teaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF98C051CC42F5F00136C47 /* teaTests.swift */; };
 		BEF98C111CC42F5F00136C47 /* teaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF98C101CC42F5F00136C47 /* teaUITests.swift */; };
+		BEF98C1F1CC449AE00136C47 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF98C1E1CC449AE00136C47 /* StatusMenuController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BEA81E3A1CC4524100C6B9BF /* MbtaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MbtaClient.swift; sourceTree = "<group>"; };
 		BEF98BF21CC42F5F00136C47 /* tea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF98BF51CC42F5F00136C47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEF98BF71CC42F5F00136C47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,6 +46,7 @@
 		BEF98C0C1CC42F5F00136C47 /* teaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = teaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF98C101CC42F5F00136C47 /* teaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = teaUITests.swift; sourceTree = "<group>"; };
 		BEF98C121CC42F5F00136C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEF98C1E1CC449AE00136C47 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				BEF98BF51CC42F5F00136C47 /* AppDelegate.swift */,
+				BEF98C1E1CC449AE00136C47 /* StatusMenuController.swift */,
+				BEA81E3A1CC4524100C6B9BF /* MbtaClient.swift */,
 				BEF98BF71CC42F5F00136C47 /* Assets.xcassets */,
 				BEF98BF91CC42F5F00136C47 /* MainMenu.xib */,
 				BEF98BFC1CC42F5F00136C47 /* Info.plist */,
@@ -249,7 +255,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEF98C1F1CC449AE00136C47 /* StatusMenuController.swift in Sources */,
 				BEF98BF61CC42F5F00136C47 /* AppDelegate.swift in Sources */,
+				BEA81E3B1CC4524100C6B9BF /* MbtaClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +479,7 @@
 				BEF98C171CC42F5F00136C47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BEF98C181CC42F5F00136C47 /* Build configuration list for PBXNativeTarget "teaTests" */ = {
 			isa = XCConfigurationList;
@@ -479,6 +488,7 @@
 				BEF98C1A1CC42F5F00136C47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BEF98C1B1CC42F5F00136C47 /* Build configuration list for PBXNativeTarget "teaUITests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +497,7 @@
 				BEF98C1D1CC42F5F00136C47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
