@@ -91,28 +91,45 @@ class MbtaClient {
         return stop
     }
     
-    func fetchWeather(query: String, success: (Stop) -> Void) { {
+    func fetchPredictionsByStop(stopId: String, callback:(NSError?, Stop?) -> Void) -> String {
+        
+        
+        self.fetchData(getPredictionByStopQuery(stopId)) { error, data in
+            if(error != nil) {
+                callback(error, nil)
+            } else {
+                let stop = self.stopFromJSON(data!)
+            }
+        }
+        
+        
+        return stop.trips
+    }
+    
+    func fetchData(urlString: String, callback: (NSError?, NSData?) -> Void) {
         let session = NSURLSession.sharedSession()
         // url-escape the query string we're passed
-        let escapedQuery = query.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-        let url = NSURL(urlString)
+
+        let url = NSURL(string: urlString)
         let task = session.dataTaskWithURL(url!) { data, response, error in
             // first check for a hard error
-            if let error = err {
-                NSLog("mbta api error: \(error)")
+            if error != nil{
+                callback(error, nil)
             }
             
             // then check the response code
             if let httpResponse = response as? NSHTTPURLResponse {
                 switch httpResponse.statusCode {
                 case 200: // all good!
-                    if let weather = self.weatherFromJSONData(data!) {
-                        success(weather)
-                    }
+                    callback(nil, data!)
                 case 401: // unauthorized
-                    NSLog("mbta api returned an 'unauthorized' response. Did you set your API key?")
+                    NSLog("weather api returned an 'unauthorized' response. Did you set your API key?")
+                    let authErr = NSError(domain: "fetchData returned 401", code: 1, userInfo: nil)
+                    callback(authErr, nil)
                 default:
-                    NSLog("mbta api returned response: %d %@", httpResponse.statusCode, NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))
+                    NSLog("weather api returned response: %d %@", httpResponse.statusCode, NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))
+                    let authErr = NSError(domain: "fetchData returned non 200", code: 1, userInfo: nil)
+                    callback(authErr, nil)
                 }
             }
         }
