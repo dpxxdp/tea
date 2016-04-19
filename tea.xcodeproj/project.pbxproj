@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BEA81E3B1CC4524100C6B9BF /* MbtaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA81E3A1CC4524100C6B9BF /* MbtaClient.swift */; };
+		BEA81E3D1CC6FA5700C6B9BF /* PreferenceSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA81E3C1CC6FA5700C6B9BF /* PreferenceSet.swift */; };
 		BEF98BF61CC42F5F00136C47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF98BF51CC42F5F00136C47 /* AppDelegate.swift */; };
 		BEF98BF81CC42F5F00136C47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEF98BF71CC42F5F00136C47 /* Assets.xcassets */; };
 		BEF98BFB1CC42F5F00136C47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF98BF91CC42F5F00136C47 /* MainMenu.xib */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		BEA81E3A1CC4524100C6B9BF /* MbtaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MbtaClient.swift; sourceTree = "<group>"; };
+		BEA81E3C1CC6FA5700C6B9BF /* PreferenceSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceSet.swift; sourceTree = "<group>"; };
 		BEF98BF21CC42F5F00136C47 /* tea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF98BF51CC42F5F00136C47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEF98BF71CC42F5F00136C47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				BEF98BF51CC42F5F00136C47 /* AppDelegate.swift */,
 				BEF98C1E1CC449AE00136C47 /* StatusMenuController.swift */,
 				BEA81E3A1CC4524100C6B9BF /* MbtaClient.swift */,
+				BEA81E3C1CC6FA5700C6B9BF /* PreferenceSet.swift */,
 				BEF98BF71CC42F5F00136C47 /* Assets.xcassets */,
 				BEF98BF91CC42F5F00136C47 /* MainMenu.xib */,
 				BEF98BFC1CC42F5F00136C47 /* Info.plist */,
@@ -257,6 +260,7 @@
 			files = (
 				BEF98C1F1CC449AE00136C47 /* StatusMenuController.swift in Sources */,
 				BEF98BF61CC42F5F00136C47 /* AppDelegate.swift in Sources */,
+				BEA81E3D1CC6FA5700C6B9BF /* PreferenceSet.swift in Sources */,
 				BEA81E3B1CC4524100C6B9BF /* MbtaClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

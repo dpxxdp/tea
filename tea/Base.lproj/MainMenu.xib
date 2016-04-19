@@ -27,6 +27,10 @@
                         <action selector="refreshClicked:" target="cg1-L5-pD6" id="c3G-A4-ksS"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="YQl-xB-fwq" userLabel="Separator"/>
+                <menuItem title="Item" id="weP-p8-giV" userLabel="Preferences">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="GMR-PT-kgM"/>
                 <menuItem title="Quit" id="Lsl-mu-s8A">
                     <modifierMask key="keyEquivalentModifierMask"/>
