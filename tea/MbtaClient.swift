@@ -8,67 +8,70 @@
 
 import Foundation
 
-struct Trip {
-    var id: String
-    var headsign: String
-    var pre_date: String
-    var pre_away: String
-}
-
-struct Stop {
+public struct Stop {
     var id: String
     var name: String
-    var modeId: String
     var modeName: String
-    var routeId: String
     var routeName: String
-    var trips: NSArray
 }
 
-class MbtaClient {
-    
-    let API_KEY = "ZaL-rNuhvkGlzp9fA6SwSg"
-    let FORMAT = "json"
-    let BASE_URL = "http://realtime.mbta.com/developer/api/v2/"
-    
-    let API_QUERY = "?api_key="
-    let FORMAT_QUERY = "&format="
-    let STOP_QUERY = "&stop="
-    let ROUTE_QUERY = "&route="
-    
-    let PREDICTIONS_BY_STOP_TOPIC = "predictionsByStop"
-    let STOPS_BY_ROUTE_TOPIC = "stopsByRoute"
-    let ROUTES_TOPIC = "routes"
-    
-    let HA_STOP_ID = "70067"
+public struct Prediction {
+    var stop_id: String
+    var id: String
+    var headsign: String
+    var pre_date: NSDate
+    var pre_away: NSTimeInterval
+    var timestamp: NSDate
+}
 
+public class MbtaClient {
     
-    func getUrl(topic: String, query: String) -> String {
+    public func fetchPredictionsByStop(stopId: String, callback:(NSError?, Array<Prediction>?) -> Void) {
+        self.fetchData(generatePredictionsByStopUrl(stopId)) { error, data in
+            if(error != nil) {
+                callback(error, nil)
+            } else {
+                let predictions = self.deserializePredictions(data!)
+                callback(nil, predictions)
+            }
+        }
+    }
+    
+    public func fetchStopsByRoute(routeId: String, callback:(NSError?, Array<Stop>?) -> Void) {
+        self.fetchData(generateStopsByRouteUrl(routeId)) { error, data in
+            if(error != nil) {
+                callback(error, nil)
+            } else {
+                let stops = self.deserializeStops(data!)
+                callback(nil, stops)
+            }
+        }
+    }
+    
+    //helpers and private variables
+    
+    private let API_KEY = "ZaL-rNuhvkGlzp9fA6SwSg"
+    private let FORMAT = "json"
+    private let BASE_URL = "http://realtime.mbta.com/developer/api/v2/"
+    
+    private let API_QUERY = "?api_key="
+    private let FORMAT_QUERY = "&format="
+    
+    private func getUrl(topic: String, query: String) -> String {
         return BASE_URL + topic + API_QUERY + API_KEY + query + FORMAT_QUERY + FORMAT
     }
     
-    func getPredictionByStopQuery(stopId: String) -> String {
-        let query = STOP_QUERY + stopId
-        return getUrl(PREDICTIONS_BY_STOP_TOPIC, query: query)
-    }
+    //stop helpers
     
-    func getStopsByRouteQuery(routeId: String) -> String {
+    private let STOPS_BY_ROUTE_TOPIC = "stopsByRoute"
+    private let ROUTE_QUERY = "&route="
+    
+    private func generateStopsByRouteUrl(routeId: String) -> String {
         let query = ROUTE_QUERY + routeId
         return getUrl(STOPS_BY_ROUTE_TOPIC, query: query)
     }
     
-    func getRoutesQuery() -> String {
-        let query = ""
-        return getUrl(ROUTES_TOPIC, query: query)
-    }
-    
-    func fetchPredictionsByStop(stopId: String) -> String {
-        let returnData = fetchData(getPredictionByStopQuery(stopId))
-        let stop = stopFromJSON(returnData)
-        return stop.trips
-    }
-    
-    func stopFromJSON(data: NSData) -> Stop? {
+    private func deserializeStops(data: NSData) -> Array<Stop>? {
         typealias JSONDict = [String:AnyObject]
         let json : JSONDict
         
@@ -80,33 +83,62 @@ class MbtaClient {
         }
         
         var mainDict = json["main"] as! JSONDict
-        var stopList = json["stop"] as! [JSONDict]
-        var stopDict = stopList[0]
         
+        var stops = Array<Stop>();
+        //foreach
         let stop = Stop(
-            name: json["stop_name"] as! String,
             id: mainDict["stop_id"] as! String,
+            name: json["stop_name"] as! String,
+            modeName: json["mode_name"] as! String,
+            routeName: json["route_name"] as! String
         )
+        stops.append(stop)
+        //
         
-        return stop
+        return stops
     }
     
-    func fetchPredictionsByStop(stopId: String, callback:(NSError?, Stop?) -> Void) -> String {
+    //prediction helpers
+    
+    private let PREDICTIONS_BY_STOP_TOPIC = "predictionsByStop"
+    let STOP_QUERY = "&stop="
+
+    private func generatePredictionsByStopUrl(stopId: String) -> String {
+        let query = STOP_QUERY + stopId
+        return getUrl(PREDICTIONS_BY_STOP_TOPIC, query: query)
+    }
+    
+    private func deserializePredictions(data: NSData) -> Array<Prediction>? {
+        typealias JSONDict = [String:AnyObject]
+        let json : JSONDict
         
-        
-        self.fetchData(getPredictionByStopQuery(stopId)) { error, data in
-            if(error != nil) {
-                callback(error, nil)
-            } else {
-                let stop = self.stopFromJSON(data!)
-            }
+        do {
+            json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! JSONDict
+        } catch {
+            NSLog("JSON parsing failed: \(error)")
+            return nil
         }
         
+        var predictions = Array<Prediction>();
         
-        return stop.trips
+        //foreach
+        let prediction = Prediction(
+            stop_id: "TODO:TEST_STOP_ID",
+            id: "TODO:TEST_ID",
+            headsign: "TODO:ASHMONT",
+            pre_date: NSDate(timeIntervalSince1970: NSTimeInterval(1234123)),
+            pre_away: NSTimeInterval(3462456345),
+            timestamp: NSDate()
+        )
+        predictions.append(prediction);
+        //
+        
+        return predictions
     }
     
-    func fetchData(urlString: String, callback: (NSError?, NSData?) -> Void) {
+    //api call
+    
+    private func fetchData(urlString: String, callback: (NSError?, NSData?) -> Void) {
         let session = NSURLSession.sharedSession()
         // url-escape the query string we're passed
 
@@ -135,6 +167,4 @@ class MbtaClient {
         }
         task.resume()
     }
-}
-    
 }
